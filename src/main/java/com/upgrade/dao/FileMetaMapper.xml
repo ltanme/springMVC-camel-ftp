@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.upgrade.dao.FileMetaMapper">
+    <resultMap id="FileMetaResultMap" type="com.upgrade.model.FileMeta">
+        <id property="id" column="id"/>
+        <result property="fileName" column="fileName"/>
+        <result property="fileSize" column="fileSize"/>
+        <result property="fileType" column="fileType"/>
+        <result property="createTime" column="createTime"/>
+        <result property="deleteUrl" column="deleteUrl"/>
+        <result property="downloadUrl" column="downloadUrl"/>
+        <result property="deleteType" column="deleteType"/>
+        <result property="fsUrl" column="fsUrl"/>
+        <result property="cdnUrl" column="cdnUrl"/>
+    </resultMap>
+
+    <select id="findBy" resultMap="FileMetaResultMap" parameterType="HashMap">
+        SELECT `id`,`fileName`,`fileSize`,`fileType`,`deleteUrl`,`downloadUrl`,`deleteType`,`fsUrl`,`cdnUrl`
+        FROM `upgrade`
+        ORDER BY id DESC
+        <choose>
+            <when test="pagination_limit == null">
+                LIMIT 20
+            </when>
+            <otherwise>
+                LIMIT #{pagination_limit}
+            </otherwise>
+        </choose>
+        <choose>
+            <when test="pagination_offset == null">
+                OFFSET 0
+            </when>
+            <otherwise>
+                OFFSET #{pagination_offset}
+            </otherwise>
+        </choose>
+    </select>
+    <select id="getEntityById" parameterType="Long" resultMap="FileMetaResultMap">
+         SELECT `id`,`fileName`,`fileSize`,`fileType`,`deleteUrl`,`downloadUrl`,`deleteType`,`fsUrl`,`cdnUrl`
+        FROM `upgrade`
+        WHERE id = #{id}
+    </select>
+
+    <select id="getEntityBy" parameterType="HashMap" resultMap="FileMetaResultMap">
+        SELECT `id`,`fileName`,`fileSize`,`fileType`,`deleteUrl`,`downloadUrl`,`deleteType`,`fsUrl`,`cdnUrl`
+        FROM `upgrade`
+        <trim prefixOverrides="and" prefix="WHERE">
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="fileName != null">
+                and fileName = #{fileName}
+            </if>
+        </trim>
+    </select>
+
+    <insert id="insert" parameterType="com.upgrade.model.FileMeta" useGeneratedKeys="true" keyColumn="id">
+        INSERT INTO `upgrade` (
+        <trim suffix=")" suffixOverrides=",">
+            <if test="fileName != null">fileName,</if>
+            <if test="fileSize != null">fileSize,</if>
+            <if test="fileType != null">fileType,</if>
+            <if test="downloadUrl != null">downloadUrl,</if>
+            <if test="deleteUrl != null">deleteUrl,</if>
+            <if test="createTime != null">createTime,</if>
+        </trim>
+        values (<trim suffix=")" suffixOverrides=",">
+            <if test="fileName != null">#{fileName},</if>
+            <if test="fileSize != null">#{fileSize},</if>
+            <if test="fileType != null">#{fileType},</if>
+            <if test="downloadUrl != null">#{downloadUrl},</if>
+            <if test="deleteUrl != null">#{deleteUrl},</if>
+            <if test="createTime != null">#{createTime},</if>
+        </trim>
+        <selectKey resultType="Long" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+
+    <update id="update" parameterType="com.upgrade.model.FileMeta">
+        UPDATE `upgrade`
+        <set>
+            <if test="fileName != null">`fileName` = #{fileName},</if>
+            <if test="fileSize != null">`fileSize` = #{fileSize},</if>
+            <if test="fileType != null">`fileType` = #{fileType},</if>
+            <if test="deleteUrl != null">`deleteUrl` = #{deleteUrl},</if>
+            <if test="createTime != null">`createTime` = #{createTime},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        DELETE FROM `upgrade`
+        WHERE id = #{id}
+    </delete>
+
+</mapper>

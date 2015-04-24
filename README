@@ -1,0 +1,24 @@
+http://www.jayway.com/2010/08/12/dynamic-ftp-client-using-apache-camel-and-spring/
+http://camel.apache.org/ftp.html
+http://camel.apache.org/how-do-i-configure-endpoints.html
+http://camel.apache.org/file2
+http://camel.apache.org/ftp2.html
+
+传统做法
+http://www.open-open.com/lib/view/open1384090071946.html
+
+
+CREATE TABLE `upgrade` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fileName` varchar(255) DEFAULT NULL,
+  `fileSize` varchar(255) DEFAULT NULL,
+  `fileType` varchar(255) DEFAULT NULL,
+  `deleteUrl` varchar(255) DEFAULT NULL,
+  `downloadUrl` varchar(255) DEFAULT NULL,
+  `deleteType` varchar(255) DEFAULT NULL,
+  `fsUrl` varchar(255) DEFAULT NULL,
+  `cdnUrl` varchar(255) DEFAULT NULL,
+  `createTime` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
