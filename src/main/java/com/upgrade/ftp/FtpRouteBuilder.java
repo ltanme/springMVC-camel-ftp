@@ -9,6 +9,6 @@ public class FtpRouteBuilder extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("file:D:/Intellij_IDEA_project/java/upgrade/src/main/webapp/upload").to("ftp://srtuser@42.121.104.88/testjava?password=dota.123&passiveMode=true");
+        from("file:D:/Intellij_IDEA_project/java/upgrade/src/main/webapp/upload").to("ftp://user@127.0.0.1/testjava?password=123456&passiveMode=true");
     }
 }
